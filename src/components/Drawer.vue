@@ -19,6 +19,9 @@
           <v-list-item-title>Admin</v-list-item-title>
           <v-list-item-subtitle>Gimmick Box</v-list-item-subtitle>
         </v-list-item-content>
+        <!-- <v-btn icon @click="miniVariant = !miniVariant">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>-->
       </v-list-item>
 
       <v-divider></v-divider>
@@ -71,8 +74,8 @@ export default {
       color: "primary",
       colors: ["primary", "blue", "success", "red", "teal"],
       right: false,
-      miniVariant: true,
-      expandOnHover: true,
+      miniVariant: false,
+      expandOnHover: null,
       background: false,
       items_2: [
         {

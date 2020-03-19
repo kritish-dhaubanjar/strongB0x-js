@@ -24,3 +24,16 @@ export default {
   }
 };
 </script>
+
+<style>
+input,
+label,
+.v-select__selection,
+textarea {
+  font-size: 14px !important;
+}
+
+td {
+  font-size: 0.84rem !important;
+}
+</style>

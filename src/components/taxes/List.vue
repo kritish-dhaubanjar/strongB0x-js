@@ -171,12 +171,17 @@ export default {
           .then(res => {
             if (res.status == 200) {
               this.snackbar.show = true;
-              this.snackbar.color = "success";
-              this.snackbar.message = `200 (${res.data.data.name} Updated Successfully)`;
-              this.$emit("update", {
-                index: this.edit.index,
-                data: res.data.data
-              });
+              if (res.data.status == 412) {
+                this.snackbar.color = "error";
+                this.snackbar.message = `412 Precondition Failed`;
+              } else {
+                this.snackbar.color = "success";
+                this.snackbar.message = `200 (${res.data.data.name} Updated Successfully)`;
+                this.$emit("update", {
+                  index: this.edit.index,
+                  data: res.data.data
+                });
+              }
             } else {
               this.snackbar.show = true;
               this.snackbar.color = "error";

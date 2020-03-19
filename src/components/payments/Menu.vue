@@ -5,7 +5,7 @@
       <v-btn text @click="snackbar.show = false">Close</v-btn>
     </v-snackbar>
     <v-col cols="5">
-      <h1 class="title">Transfers</h1>
+      <h1 class="title">Payments</h1>
     </v-col>
     <v-col cols="7" class="text-right">
       <v-dialog v-model="dialog" max-width="768px">
@@ -16,31 +16,23 @@
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">New Transfer</span>
+            <span class="headline">New Payment</span>
           </v-card-title>
 
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-container>
                 <v-row>
-                  <v-col cols="6" class="py-0">
-                    <v-select
-                      prepend-inner-icon="mdi-folder-outline"
-                      v-model="item.expense_account_id"
-                      :items="accounts"
-                      label="From Account"
-                    ></v-select>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field
+                      prepend-inner-icon="mdi-calendar-month"
+                      v-model="item.paid_at"
+                      label="Date"
+                      :rules="dateRules"
+                      placeholder="2076-12-01"
+                      required
+                    ></v-text-field>
                   </v-col>
-                  <v-col cols="6" class="py-0">
-                    <v-select
-                      prepend-inner-icon="mdi-folder-outline"
-                      v-model="item.income_account_id"
-                      :items="accounts"
-                      label="To Account"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-row>
                   <v-col cols="4" class="py-0">
                     <v-text-field
                       prepend-inner-icon="mdi-cash-multiple"
@@ -52,14 +44,32 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4" class="py-0">
-                    <v-text-field
-                      prepend-inner-icon="mdi-calendar-month"
-                      v-model="item.paid_at"
-                      label="Date"
-                      :rules="dateRules"
-                      placeholder="2076-12-01"
-                      required
-                    ></v-text-field>
+                    <v-select
+                      prepend-inner-icon="mdi-folder-outline"
+                      v-model="item.category_id"
+                      :items="categories"
+                      :rules="categoryRules"
+                      label="Category"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="4" class="py-0">
+                    <v-select
+                      prepend-inner-icon="mdi-account-circle-outline"
+                      v-model="item.contact_id"
+                      :items="vendors"
+                      label="Vendor"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="4" class="py-0">
+                    <v-select
+                      prepend-inner-icon="mdi-folder-outline"
+                      v-model="item.account_id"
+                      :items="accounts"
+                      :rules="accountRules"
+                      label="Account"
+                    ></v-select>
                   </v-col>
                   <v-col cols="4" class="py-0">
                     <v-select
@@ -106,7 +116,7 @@
 import axios from "axios";
 
 export default {
-  props: ["accounts", "methods"],
+  props: ["accounts", "methods", "vendors", "categories"],
   data: () => ({
     dialog: false,
     valid: true,
@@ -116,17 +126,22 @@ export default {
       message: ""
     },
     item: {
-      expense_account_id: null,
-      income_account_id: null,
+      type: "expense",
       paid_at: "",
       amount: "0.00",
-      payment_method: "Cash",
-      description: ""
+      account_id: null,
+      document_id: null,
+      contact_id: null,
+      category_id: null,
+      description: null,
+      payment_method: "Cash"
     },
     amountRules: [
       v => !!v || "Amount is required",
       v => (v && v >= 0) || "Amount must not be less than 0."
     ],
+    categoryRules: [v => !!v || "Category is required"],
+    accountRules: [v => !!v || "Account is required"],
     dateRules: [
       v => !!v || "Date is required",
       v =>
@@ -140,35 +155,42 @@ export default {
   }),
 
   watch: {
-    accounts() {
-      if (this.accounts.length > 0) {
-        this.item.expense_account_id = this.accounts[0].value;
-        this.item.income_account_id = this.accounts[0].value;
-      }
+    categories() {
+      this.init();
     }
   },
 
   methods: {
+    init() {
+      if (this.categories.length > 0)
+        this.item.category_id = this.categories[0].value;
+      if (this.accounts.length > 0)
+        this.item.account_id = this.accounts[0].value;
+    },
     close() {
       this.dialog = false;
       this.$refs.form.resetValidation();
-      this.item.expense_account_id = 1;
-      this.item.income_account_id = 1;
+      this.item.type = "expense";
       this.item.paid_at = "";
       this.item.amount = "0.00";
+      this.item.account_id = null;
+      this.item.document_id = null;
+      this.item.contact_id = null;
+      this.item.category_id = null;
+      this.item.description = null;
       this.item.payment_method = "Cash";
-      this.item.description = "";
+      this.init();
     },
     save() {
       if (this.$refs.form.validate()) {
         axios
-          .post("/api/transfers", this.item)
+          .post("/api/transactions", this.item)
           .then(res => {
             if (res.status == 201) {
               this.close();
               this.snackbar.show = true;
               this.snackbar.color = "success";
-              this.snackbar.message = `200 (Transfer created Successfully)`;
+              this.snackbar.message = `200 (Transaction created Successfully)`;
               this.$emit("insert", res.data.data);
             } else {
               this.snackbar.show = true;

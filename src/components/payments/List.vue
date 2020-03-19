@@ -6,7 +6,7 @@
     </v-snackbar>
     <v-col>
       <v-card-title>
-        Transfers
+        Payments
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -37,8 +37,8 @@
     <!-- Delete Dialog -->
     <v-dialog v-model="destroy.destroy" max-width="512px">
       <v-card>
-        <v-card-title class="headline">Delete Transfer of {{destroy.item.paid_at}}</v-card-title>
-        <v-card-text>Are you sure that you want to permanently delete Transfer of {{destroy.item.paid_at}} ?</v-card-text>
+        <v-card-title class="headline">Delete Payment of {{destroy.item.paid_at}}</v-card-title>
+        <v-card-text>Are you sure that you want to permanently delete Payment of {{destroy.item.paid_at}} ?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="resetDelete">Cancel</v-btn>
@@ -51,31 +51,23 @@
     <v-dialog v-model="edit.edit" max-width="768px">
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Customer</span>
+          <span class="headline">Edit Payment</span>
         </v-card-title>
 
         <v-card-text>
           <v-form ref="edit" v-model="valid" lazy-validation>
             <v-container>
               <v-row>
-                <v-col cols="6" class="py-0">
-                  <v-select
-                    prepend-inner-icon="mdi-folder-outline"
-                    v-model="edit.item.expense_account_id"
-                    :items="accounts"
-                    label="From Account"
-                  ></v-select>
+                <v-col cols="4" class="py-0">
+                  <v-text-field
+                    prepend-inner-icon="mdi-calendar-month"
+                    v-model="edit.item.paid_at"
+                    label="Date"
+                    :rules="dateRules"
+                    placeholder="2076-12-01"
+                    required
+                  ></v-text-field>
                 </v-col>
-                <v-col cols="6" class="py-0">
-                  <v-select
-                    prepend-inner-icon="mdi-folder-outline"
-                    v-model="edit.item.income_account_id"
-                    :items="accounts"
-                    label="To Account"
-                  ></v-select>
-                </v-col>
-              </v-row>
-              <v-row>
                 <v-col cols="4" class="py-0">
                   <v-text-field
                     prepend-inner-icon="mdi-cash-multiple"
@@ -87,14 +79,32 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="4" class="py-0">
-                  <v-text-field
-                    prepend-inner-icon="mdi-calendar-month"
-                    v-model="edit.item.paid_at"
-                    label="Date"
-                    :rules="dateRules"
-                    placeholder="2076-12-01"
-                    required
-                  ></v-text-field>
+                  <v-select
+                    prepend-inner-icon="mdi-folder-outline"
+                    v-model="edit.item.category_id"
+                    :items="categories"
+                    :rules="categoryRules"
+                    label="Category"
+                  ></v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="4" class="py-0">
+                  <v-select
+                    prepend-inner-icon="mdi-account-circle-outline"
+                    v-model="edit.item.contact_id"
+                    :items="vendors"
+                    label="Vendor"
+                  ></v-select>
+                </v-col>
+                <v-col cols="4" class="py-0">
+                  <v-select
+                    prepend-inner-icon="mdi-folder-outline"
+                    v-model="edit.item.account_id"
+                    :items="accounts"
+                    :rules="accountRules"
+                    label="Account"
+                  ></v-select>
                 </v-col>
                 <v-col cols="4" class="py-0">
                   <v-select
@@ -133,7 +143,7 @@
 import axios from "axios";
 
 export default {
-  props: ["items", "accounts", "methods"],
+  props: ["items", "accounts", "methods", "vendors", "categories"],
   data() {
     return {
       snackbar: {
@@ -159,9 +169,11 @@ export default {
           sortable: true,
           value: "paid_at"
         },
-        { text: "FROM", value: "expense" },
-        { text: "TO", value: "income" },
         { text: "AMOUNT (NPR)", value: "amount" },
+        { text: "VENDOR", value: "contact_name" },
+        { text: "CATEGORY", value: "category" },
+        { text: "ACCOUNT", value: "account" },
+        { text: "PAYMENT METHOD", value: "payment_method" },
         { text: "ACTIONS", value: "actions", sortable: false }
       ],
 
@@ -171,6 +183,8 @@ export default {
         v => !!v || "Amount is required",
         v => (v && v >= 0) || "Amount must not be less than 0."
       ],
+      categoryRules: [v => !!v || "Category is required"],
+      accountRules: [v => !!v || "Account is required"],
       dateRules: [
         v => !!v || "Date is required",
         v =>
@@ -187,8 +201,9 @@ export default {
   methods: {
     editItem(item) {
       this.edit.index = this.items.indexOf(item);
-      axios.get(`/api/transfers/${item.id}`).then(res => {
+      axios.get(`/api/transactions/${item.id}`).then(res => {
         this.edit.item = res.data.data;
+        this.edit.item.amount += "";
       });
       this.edit.edit = true;
     },
@@ -202,12 +217,12 @@ export default {
     saveEdit() {
       if (this.$refs.edit.validate()) {
         axios
-          .put(`/api/transfers/${this.edit.item.id}`, this.edit.item)
+          .put(`/api/transactions/${this.edit.item.id}`, this.edit.item)
           .then(res => {
-            if (res.status == 200) {
+            if (res.status == 201) {
               this.snackbar.show = true;
               this.snackbar.color = "success";
-              this.snackbar.message = `200 (${res.data.data.paid_at} Updated Successfully)`;
+              this.snackbar.message = `201 (${res.data.data.paid_at} Updated Successfully)`;
               this.$emit("update", {
                 index: this.edit.index,
                 data: res.data.data
@@ -245,12 +260,12 @@ export default {
     confirmDelete() {
       if (this.destroy.destroy && this.destroy.index > -1) {
         axios
-          .delete(`/api/transfers/${this.destroy.item.id}`)
+          .delete(`/api/transactions/${this.destroy.item.id}`)
           .then(res => {
             this.snackbar.show = true;
             if (res.status == 200) {
               this.snackbar.color = "success";
-              this.snackbar.message = `200 (${res.data.paid_at} Deleted Successfully)`;
+              this.snackbar.message = `200 (${res.data.data.paid_at} Deleted Successfully)`;
               this.items.splice(this.destroy.index, 1);
             } else {
               this.snackbar.color = "error";

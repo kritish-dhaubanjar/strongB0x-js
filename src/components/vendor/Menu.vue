@@ -4,10 +4,10 @@
       {{snackbar.message}}
       <v-btn text @click="snackbar.show = false">Close</v-btn>
     </v-snackbar>
-    <v-col>
+    <v-col cols="5">
       <h1 class="title">Vendors</h1>
     </v-col>
-    <v-col class="text-right">
+    <v-col cols="7" class="text-right">
       <v-dialog v-model="dialog" max-width="768px">
         <template v-slot:activator="{ on }">
           <v-btn color="success" dark depressed small class="ml-2" v-on="on">
