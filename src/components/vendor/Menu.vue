@@ -107,7 +107,7 @@ export default {
       message: ""
     },
     item: {
-      type: "customer",
+      type: "vendor",
       name: "",
       email: "",
       tax_number: "",
