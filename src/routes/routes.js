@@ -1,3 +1,4 @@
+import Dashboard from "@/pages/Dashboard"
 import Product from "@/pages/Product"
 import Unit from "@/pages/Unit"
 import Tax from "@/pages/Tax"
@@ -10,6 +11,7 @@ import Vendor from "@/pages/Vendor"
 import Account from "@/pages/Account"
 import Transaction from "@/pages/Transaction"
 import Transfer from "@/pages/Transfer"
+import Company from "@/pages/Company"
 import Category from "@/pages/Category"
 
 export const routes = [{
@@ -74,13 +76,18 @@ export const routes = [{
         name: "Transfers"
     },
     {
+        path: "/company",
+        component: Company,
+        name: "Company"
+    },
+    {
         path: "/categories",
         component: Category,
         name: "Categories"
     },
     {
         path: "/",
-        component: Product,
+        component: Dashboard,
         name: "Dashboard"
     }
 ]

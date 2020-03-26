@@ -114,7 +114,7 @@ export default {
         {
           action: "mdi-cog-outline",
           title: "Settings",
-          items: [{ title: "Categories" }]
+          items: [{ title: "Categories" }, { title: "Company" }]
         }
       ]
     };
