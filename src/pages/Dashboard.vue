@@ -29,17 +29,24 @@
     <Cards :amounts="values"></Cards>
 
     <v-row>
-      <v-col class="py-10 my-10">
+      <v-col class="pt-10 mt-10 mb-10">
         <div id="chartDiv">
           <canvas id="chart"></canvas>
         </div>
       </v-col>
     </v-row>
+
+    <!-- <v-row class="pb-10 mb-10"> -->
+    <!-- <v-col cols="4"> -->
+    <Balance />
+    <!-- </v-col> -->
+    <!-- </v-row> -->
   </div>
 </template>
 
 <script>
 import Cards from "@/components/dashboard/Cards";
+import Balance from "@/components/dashboard/Balance";
 import Chart from "chart.js";
 import axios from "axios";
 export default {
@@ -109,24 +116,33 @@ export default {
   },
 
   created() {
-    axios.get("/api/statistics").then(res => {
-      let { month: m2, year: y2 } = res.data.latest;
-      let { month: m1, year: y1 } = res.data.earliest;
-      let months = [];
-      for (let year = y2; year >= y1; year--) {
-        for (let month = 11; month >= 0; month--) {
-          months.push({
-            text: `${this.months[month]} ${year}`,
-            value: `${this.months[month]}${year}`.toLowerCase()
-          });
-        }
-      }
+    axios
+      .get("/api/statistics")
+      .then(res => {
+        if (res.data.status != 204) {
+          let { month: m2, year: y2 } = res.data.latest;
+          let { month: m1, year: y1 } = res.data.earliest;
+          let months = [];
+          for (let year = y2; year >= y1; year--) {
+            for (let month = 11; month >= 0; month--) {
+              months.push({
+                text: `${this.months[month]} ${year}`,
+                value: `${this.months[month]}${year}`.toLowerCase()
+              });
+            }
+          }
 
-      months.splice(0, 12 - m2);
-      months.splice(months.length - m1 + 1, m1);
-      this.range = [...this.range, ...months];
-      this.getStatistics();
-    });
+          months.splice(0, 12 - m2);
+          months.splice(months.length - m1 + 1, m1);
+          this.range = [...this.range, ...months];
+          this.getStatistics();
+        } else {
+          this.overlay = false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
 
   computed: {
@@ -154,7 +170,8 @@ export default {
               data: this.chart.invoices,
               backgroundColor: "rgba(85, 107, 231, 0.45)",
               borderColor: "#457EEB",
-              borderWidth: 2
+              borderWidth: 2,
+              hidden: true
             },
             {
               label: "Revenues",
@@ -168,7 +185,8 @@ export default {
               data: this.chart.bills,
               backgroundColor: "rgba(84, 110, 112, 0.45)",
               borderColor: "#546e7a",
-              borderWidth: 2
+              borderWidth: 2,
+              hidden: true
             },
 
             {
@@ -209,20 +227,24 @@ export default {
     getStatistics() {
       this.overlay = true;
       axios.get(`/api/statistics/timeline/${this.selected}`).then(res => {
-        let intl = new Intl.NumberFormat("en-IN");
-        this.duration = res.data.range;
-        this.values = []; //Reactivity
-        this.values[0] = intl.format(res.data.invoices.amount);
-        this.values[1] = intl.format(res.data.revenues.amount);
-        this.values[2] = intl.format(res.data.bills.amount);
-        this.values[3] = intl.format(res.data.payments.amount);
-        this.values[4] = intl.format(res.data.expenses.amount);
-        this.server.bills = res.data.bills.data;
-        this.server.invoices = res.data.invoices.data;
-        this.server.payments = res.data.payments.data;
-        this.server.revenues = res.data.revenues.data;
-        this.server.expenses = res.data.expenses.data;
-        this.getTimeline();
+        if (res.data.status != 204) {
+          let intl = new Intl.NumberFormat("en-IN");
+          this.duration = res.data.range;
+          this.values = []; //Reactivity
+          this.values[0] = intl.format(res.data.invoices.amount);
+          this.values[1] = intl.format(res.data.revenues.amount);
+          this.values[2] = intl.format(res.data.bills.amount);
+          this.values[3] = intl.format(res.data.payments.amount);
+          this.values[4] = intl.format(res.data.expenses.amount);
+          this.server.bills = res.data.bills.data;
+          this.server.invoices = res.data.invoices.data;
+          this.server.payments = res.data.payments.data;
+          this.server.revenues = res.data.revenues.data;
+          this.server.expenses = res.data.expenses.data;
+          this.getTimeline();
+        } else {
+          this.overlay = false;
+        }
       });
     },
 
@@ -336,7 +358,8 @@ export default {
   },
 
   components: {
-    Cards
+    Cards,
+    Balance
   }
 };
 </script>

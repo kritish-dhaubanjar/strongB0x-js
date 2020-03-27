@@ -4,26 +4,26 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
     <Menu @insert="insert" />
-    <List @update="update" :items="taxes" />
+    <List @update="update" :items="accounts" />
   </div>
 </template>
 
 <script>
-import Menu from "@/components/taxes/Menu";
-import List from "@/components/taxes/List";
+import Menu from "@/components/banking/accounts/Menu";
+import List from "@/components/banking/accounts/List";
 import axios from "axios";
 
 export default {
   data() {
     return {
       overlay: false,
-      taxes: []
+      accounts: []
     };
   },
   created() {
     this.overlay = true;
-    axios.get("/api/taxes").then(res => {
-      this.taxes = res.data.data;
+    axios.get("/api/accounts").then(res => {
+      this.accounts = res.data.data;
       this.overlay = false;
     });
   },
@@ -33,10 +33,10 @@ export default {
   },
   methods: {
     insert(payload) {
-      this.taxes.push(payload);
+      this.accounts.push(payload);
     },
     update({ index, data }) {
-      this.taxes.splice(index, 1, data);
+      this.accounts.splice(index, 1, data);
     }
   }
 };

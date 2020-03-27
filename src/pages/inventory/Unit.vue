@@ -3,28 +3,27 @@
     <v-overlay :value="overlay" z-index="7">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
-    <Menu @insert="insert" :types="types" />
-    <List @update="update" :items="categories" :types="types" />
+    <Menu @insert="insert" />
+    <List @update="update" :items="units" />
   </div>
 </template>
 
 <script>
-import Menu from "@/components/categories/Menu";
-import List from "@/components/categories/List";
+import Menu from "@/components/inventory/units/Menu";
+import List from "@/components/inventory/units/List";
 import axios from "axios";
 
 export default {
   data() {
     return {
       overlay: false,
-      categories: [],
-      types: ["income", "expense", "item", "other"]
+      units: []
     };
   },
   created() {
     this.overlay = true;
-    axios.get("/api/categories").then(res => {
-      this.categories = res.data.data;
+    axios.get("/api/units").then(res => {
+      this.units = res.data.data;
       this.overlay = false;
     });
   },
@@ -34,10 +33,10 @@ export default {
   },
   methods: {
     insert(payload) {
-      this.categories.push(payload);
+      this.units.push(payload);
     },
     update({ index, data }) {
-      this.categories.splice(index, 1, data);
+      this.units.splice(index, 1, data);
     }
   }
 };

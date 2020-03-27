@@ -56,7 +56,16 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="12" class="py-0">
+                  <v-col cols="6" class="py-0">
+                    <v-text-field
+                      prepend-inner-icon="mdi-cash"
+                      v-model="item.opening_balance"
+                      label="Opening Balance (Credit)"
+                      :rules="balanceRules"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" class="py-0">
                     <v-text-field
                       prepend-inner-icon="mdi-map-marker"
                       v-model="item.address"
@@ -110,6 +119,7 @@ export default {
       type: "customer",
       name: "",
       email: "",
+      opening_balance: "0.00",
       tax_number: "",
       phone: "",
       address: "",
@@ -118,6 +128,10 @@ export default {
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 100) || "Name must be less than 100 characters"
+    ],
+    balanceRules: [
+      v => !!v || "Opening Balance is required",
+      v => (v && v >= 0) || "Opening Balance must not be less than 0."
     ]
   }),
 
@@ -128,6 +142,7 @@ export default {
       this.item.name = "";
       this.item.email = "";
       this.item.tax_number = "";
+      this.item.opening_balance = "0.00";
       this.item.phone = "";
       this.item.address = "";
       this.item.enabled = true;

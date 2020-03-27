@@ -1,24 +1,35 @@
 import Dashboard from "@/pages/Dashboard"
-import Product from "@/pages/Product"
-import Unit from "@/pages/Unit"
-import Tax from "@/pages/Tax"
-import Invoice from "@/pages/Invoice"
-import Revenue from "@/pages/Revenue"
-import Customer from "@/pages/Customer"
-import Bill from "@/pages/Bill"
-import Payment from "@/pages/Payment"
-import Vendor from "@/pages/Vendor"
-import Account from "@/pages/Account"
-import Transaction from "@/pages/Transaction"
-import Transfer from "@/pages/Transfer"
-import Company from "@/pages/Company"
-import Category from "@/pages/Category"
+/* Inventory */
+import Product from "@/pages/inventory/Product"
+import Unit from "@/pages/inventory/Unit"
+import Tax from "@/pages/inventory/Tax"
+/* Sales */
+import Invoice from "@/pages/sales/Invoice"
+import Revenue from "@/pages/sales/Revenue"
+import Customer from "@/pages/sales/Customer"
+/* Purchases */
+import Bill from "@/pages/purchases/Bill"
+import Payment from "@/pages/purchases/Payment"
+import Vendor from "@/pages/purchases/Vendor"
+/* Banking */
+import Account from "@/pages/banking/Account"
+import Transaction from "@/pages/banking/Transaction"
+import Transfer from "@/pages/banking/Transfer"
+/* Reports */
+import Income_Expense from "@/pages/reports/Income_Expense";
+import Profit_Loss from "@/pages/reports/Profit_Loss";
+import Vendor_Ledger_Report from "@/pages/reports/Vendor_Ledger_Report";
+import Customer_Ledger_Report from "@/pages/reports/Customer_Ledger_Report";
+/* Settings */
+import Company from "@/pages/settings/Company"
+import Category from "@/pages/settings/Category"
 
 export const routes = [{
         path: "/products",
         component: Product,
         name: "Products"
     },
+    /* Inventory */
     {
         path: "/units",
         component: Unit,
@@ -34,6 +45,7 @@ export const routes = [{
         component: Invoice,
         name: "Invoices"
     },
+    /* Sales */
     {
         path: "/revenues",
         component: Revenue,
@@ -44,6 +56,7 @@ export const routes = [{
         component: Customer,
         name: "Customers"
     },
+    /* Purchases */
     {
         path: "/bills",
         component: Bill,
@@ -59,12 +72,12 @@ export const routes = [{
         component: Vendor,
         name: "Vendors"
     },
+    /* Banking */
     {
         path: "/accounts",
         component: Account,
         name: "Accounts"
     },
-
     {
         path: "/transactions",
         component: Transaction,
@@ -75,6 +88,28 @@ export const routes = [{
         component: Transfer,
         name: "Transfers"
     },
+    /* Reports */
+    {
+        path: "/income&expense",
+        component: Income_Expense,
+        name: "Income & Expense"
+    },
+    {
+        path: "/profit&loss",
+        component: Profit_Loss,
+        name: "Profit & Loss"
+    },
+    {
+        path: "/vendorLedgerReport",
+        component: Vendor_Ledger_Report,
+        name: "Vendor Ledger Report"
+    },
+    {
+        path: "/customerLedgerReport",
+        component: Customer_Ledger_Report,
+        name: "Customer Ledger Report"
+    },
+    /* Settings */
     {
         path: "/company",
         component: Company,
@@ -85,6 +120,7 @@ export const routes = [{
         component: Category,
         name: "Categories"
     },
+    /* Dashboard */
     {
         path: "/",
         component: Dashboard,

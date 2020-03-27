@@ -98,7 +98,16 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12" class="py-0">
+                <v-col cols="6" class="py-0">
+                  <v-text-field
+                    prepend-inner-icon="mdi-cash"
+                    v-model="edit.item.opening_balance"
+                    label="Opening Balance (Debit)"
+                    :rules="balanceRules"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6" class="py-0">
                   <v-text-field
                     prepend-inner-icon="mdi-map-marker"
                     v-model="edit.item.address"
@@ -155,6 +164,7 @@ export default {
           sortable: true,
           value: "name"
         },
+        { text: "OPENING BALANCE", value: "opening_balance" },
         { text: "EMAIL", value: "email" },
         { text: "TAX NO.", value: "tax_number" },
         { text: "PHONE", value: "phone" },
@@ -168,6 +178,10 @@ export default {
       nameRules: [
         v => !!v || "Name is required",
         v => (v && v.length <= 100) || "Name must be less than 100 characters"
+      ],
+      balanceRules: [
+        v => !!v || "Opening Balance is required",
+        v => (v && v >= 0) || "Opening Balance must not be less than 0."
       ]
     };
   },

@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import Menu from "@/components/products/Menu";
-import Jumbotron from "@/components/products/Jumbotron";
-import List from "@/components/products/List";
+import Menu from "@/components/inventory/products/Menu";
+import Jumbotron from "@/components/inventory/products/Jumbotron";
+import List from "@/components/inventory/products/List";
 import axios from "axios";
 
 export default {

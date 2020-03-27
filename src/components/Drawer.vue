@@ -110,7 +110,16 @@ export default {
             { title: "Transactions" }
           ]
         },
-        { action: "mdi-chart-bar", title: "Reports" },
+        {
+          action: "mdi-chart-bar",
+          title: "Reports",
+          items: [
+            { title: "Income & Expense" },
+            { title: "Profit & Loss" },
+            { title: "Vendor Ledger Report" },
+            { title: "Customer Ledger Report" }
+          ]
+        },
         {
           action: "mdi-cog-outline",
           title: "Settings",

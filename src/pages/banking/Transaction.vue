@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Menu from "@/components/transaction/Menu";
-import List from "@/components/transaction/List";
+import Menu from "@/components/banking/transaction/Menu";
+import List from "@/components/banking/transaction/List";
 import axios from "axios";
 
 export default {

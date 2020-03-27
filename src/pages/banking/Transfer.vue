@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Menu from "@/components/transfer/Menu";
-import Jumbotron from "@/components/transfer/Jumbotron";
-import List from "@/components/transfer/List";
+import Menu from "@/components/banking/transfer/Menu";
+import Jumbotron from "@/components/banking/transfer/Jumbotron";
+import List from "@/components/banking/transfer/List";
 import axios from "axios";
 
 export default {

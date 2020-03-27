@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import Menu from "@/components/invoices/Menu";
-import Jumbotron from "@/components/invoices/Jumbotron";
-import List from "@/components/invoices/List";
+import Menu from "@/components/sales/invoices/Menu";
+import Jumbotron from "@/components/sales/invoices/Jumbotron";
+import List from "@/components/sales/invoices/List";
 import axios from "axios";
 
 export default {
