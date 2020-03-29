@@ -17,7 +17,6 @@ import Transaction from "@/pages/banking/Transaction"
 import Transfer from "@/pages/banking/Transfer"
 /* Reports */
 import Income_Expense from "@/pages/reports/Income_Expense";
-import Profit_Loss from "@/pages/reports/Profit_Loss";
 import Vendor_Ledger_Report from "@/pages/reports/Vendor_Ledger_Report";
 import Customer_Ledger_Report from "@/pages/reports/Customer_Ledger_Report";
 /* Settings */
@@ -93,11 +92,6 @@ export const routes = [{
         path: "/income&expense",
         component: Income_Expense,
         name: "Income & Expense"
-    },
-    {
-        path: "/profit&loss",
-        component: Profit_Loss,
-        name: "Profit & Loss"
     },
     {
         path: "/vendorLedgerReport",

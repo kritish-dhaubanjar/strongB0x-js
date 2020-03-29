@@ -74,8 +74,8 @@ export default {
       color: "primary",
       colors: ["primary", "blue", "success", "red", "teal"],
       right: false,
-      miniVariant: false,
-      expandOnHover: null,
+      miniVariant: true,
+      expandOnHover: true,
       background: false,
       items_2: [
         {
@@ -115,7 +115,6 @@ export default {
           title: "Reports",
           items: [
             { title: "Income & Expense" },
-            { title: "Profit & Loss" },
             { title: "Vendor Ledger Report" },
             { title: "Customer Ledger Report" }
           ]

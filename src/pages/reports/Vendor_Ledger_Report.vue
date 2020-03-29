@@ -5,13 +5,14 @@
     </v-overlay>
     <v-row>
       <v-col cols="6">
-        <h1 class="title py-3" v-text="vendor.name"></h1>
+        <h1 class="title" v-text="vendor.name"></h1>
       </v-col>
       <v-col cols="6">
         <v-autocomplete
           :items="vendors"
           v-model="vendor.id"
           hide-no-data
+          dense
           hide-selected
           @change="getLedger"
           item-value="id"
