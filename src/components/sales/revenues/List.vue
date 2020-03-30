@@ -26,6 +26,7 @@
         :footer-props="{
             'items-per-page-options': [25, 50, 100, -1]
         }"
+        @current-items="filter"
       >
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -46,6 +47,18 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-col cols="12" class="text-right">
+      <download-excel
+        class="v-btn v-btn--depressed theme--light v-size--small"
+        worksheet="Worksheet"
+        name="revenues.xls"
+        :data="json_data"
+        :fields="json_fields"
+      >
+        <v-icon>mdi-upload</v-icon>Export
+      </download-excel>
+    </v-col>
 
     <!-- Edit Dialog -->
     <v-dialog v-model="edit.edit" max-width="768px">
@@ -194,11 +207,25 @@ export default {
             ) &&
             v.length === 10) ||
           "Date must be formated as yyyy-mm-dd"
-      ]
+      ],
+      json_data: [],
+      json_fields: {
+        "Paid At": "paid_at",
+        Amount: "amount",
+        Account: "account",
+        Customer: "contact_name",
+        Category: "category",
+        Description: "description",
+        "Payment Method": "payment_method"
+      }
     };
   },
 
   methods: {
+    /* Excel */
+    filter(data) {
+      this.json_data = data;
+    },
     editItem(item) {
       this.edit.index = this.items.indexOf(item);
       axios.get(`/api/transactions/${item.id}`).then(res => {

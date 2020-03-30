@@ -26,6 +26,7 @@
         :footer-props="{
             'items-per-page-options': [25, 50, 100, -1]
         }"
+        @current-items="filter"
       >
         <template v-slot:item.enabled="{ item }">
           <v-simple-checkbox v-model="item.enabled" disabled></v-simple-checkbox>
@@ -35,6 +36,18 @@
           <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
       </v-data-table>
+    </v-col>
+
+    <v-col cols="12" class="text-right">
+      <download-excel
+        class="v-btn v-btn--depressed theme--light v-size--small"
+        worksheet="Worksheet"
+        name="taxes.xls"
+        :data="json_data"
+        :fields="json_fields"
+      >
+        <v-icon>mdi-upload</v-icon>Export
+      </download-excel>
     </v-col>
 
     <!-- Delete Dialog -->
@@ -147,11 +160,21 @@ export default {
       taxRules: [
         v => !!v || "Rate is required",
         v => (v && v >= 0) || "Rate must not be less than 0."
-      ]
+      ],
+
+      json_data: [],
+      json_fields: {
+        Name: "name",
+        Rate: "rate"
+      }
     };
   },
 
   methods: {
+    /* Excel */
+    filter(data) {
+      this.json_data = data;
+    },
     editItem(item) {
       this.edit.item = { ...item };
       this.edit.index = this.items.indexOf(item);

@@ -26,12 +26,25 @@
         :footer-props="{
             'items-per-page-options': [25, 50, 100, -1]
         }"
+        @current-items="filter"
       >
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
           <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
       </v-data-table>
+    </v-col>
+
+    <v-col cols="12" class="text-right">
+      <download-excel
+        class="v-btn v-btn--depressed theme--light v-size--small"
+        worksheet="Worksheet"
+        name="bills.xls"
+        :data="json_data"
+        :fields="json_fields"
+      >
+        <v-icon>mdi-upload</v-icon>Export
+      </download-excel>
     </v-col>
 
     <!-- Delete Dialog -->
@@ -369,7 +382,18 @@ export default {
         v => !!v || "Price is required",
         v => (v && v >= 0) || "Price must not be less than 0."
       ],
-      discountRules: [v => (v && v >= 0) || "Discount must not be less than 0."]
+      discountRules: [
+        v => (v && v >= 0) || "Discount must not be less than 0."
+      ],
+      json_data: [],
+      json_fields: {
+        "Bill Number": "bill_number",
+        Vendor: "vendor",
+        Amount: "amount",
+        "Bill Date": "billed_at",
+        "Due Date": "due_at",
+        "Order Number": "order_number"
+      }
     };
   },
 
@@ -414,6 +438,10 @@ export default {
   },
 
   methods: {
+    /* Excel */
+    filter(data) {
+      this.json_data = data;
+    },
     changeName(item) {
       const product = this.products.filter(e => e.value === item.item_id).pop();
       item.price = product.price;

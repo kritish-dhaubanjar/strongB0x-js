@@ -4,16 +4,16 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
     <v-row>
-      <v-col cols="4">
+      <v-col cols="12" md="5">
         <h1 class="title">Income vs Expense | Fiscal Year</h1>
       </v-col>
-      <v-col cols="4" offset="1" class="text-right pb-0 pt-5">
+      <v-col cols="8" md="4" class="text-right pb-0 pt-5">
         <v-icon>mdi-calendar-month</v-icon>
         <span class="caption">From: {{earliestDate}}</span>
         <v-icon class="ml-3">mdi-calendar-month</v-icon>
         <span class="caption">To: {{latestDate}}</span>
       </v-col>
-      <v-col cols="3" class="p-0">
+      <v-col cols="4" md="3" class="p-0">
         <v-select
           dense
           :items="range"
@@ -28,13 +28,13 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col class="pt-10 mt-10">
+      <v-col class="py-10">
         <div id="chartDiv">
           <canvas id="chart"></canvas>
         </div>
       </v-col>
     </v-row>
-    <v-row class="mb-10">
+    <v-row class="mb-10 pb-10">
       <v-col cols="12">
         <v-simple-table>
           <template v-slot:default>
@@ -54,6 +54,16 @@
             </tbody>
           </template>
         </v-simple-table>
+      </v-col>
+      <v-col cols="12" class="text-right">
+        <download-excel
+          class="v-btn v-btn--depressed theme--light v-size--small"
+          worksheet="Worksheet"
+          :name="`income_expense_${duration.earliest.year}_${duration.latest.year}.xls`"
+          :data="json_data"
+        >
+          <v-icon>mdi-upload</v-icon>Export
+        </download-excel>
       </v-col>
     </v-row>
   </div>
@@ -157,6 +167,24 @@ export default {
           return acc + f;
         }, 0);
       });
+    },
+
+    json_data() {
+      let json_data = [];
+      let temp = {};
+      this.datasets.forEach(e => {
+        temp["Category"] = e.label;
+        let total = 0;
+        e.data.forEach((d, index) => {
+          temp[this.labels[index]] = d;
+          total += d;
+        });
+        temp["Total"] = total;
+        json_data.push(temp);
+        temp = {};
+      });
+
+      return json_data;
     }
   },
 

@@ -74,8 +74,8 @@ export default {
       color: "primary",
       colors: ["primary", "blue", "success", "red", "teal"],
       right: false,
-      miniVariant: true,
-      expandOnHover: true,
+      miniVariant: false,
+      expandOnHover: false,
       background: false,
       items_2: [
         {

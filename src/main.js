@@ -2,12 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import VueRouter from 'vue-router';
+import JsonExcel from 'vue-json-excel'
+
 import {
   routes
 } from './routes/routes';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
+Vue.component('downloadExcel', JsonExcel)
 
 const router = new VueRouter({
   mode: "hash",

@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="12" sm="3">
         <v-card class="mx-auto mb-5" tile>
           <div class="d-flex flex-no-wrap justify-space-between">
             <div>
@@ -72,8 +72,8 @@
       </v-col>
       <v-col>
         <v-row no-gutters>
-          <v-col cols="4">
-            <v-card tile class="mr-4" color="#62AC5B" dark>
+          <v-col cols="12" sm="4">
+            <v-card tile class="mr-sm-4" color="#62AC5B" dark>
               <div>
                 <v-card-title class="body-1 pb-0 font-weight-medium">Paid</v-card-title>
                 <v-card-text class="title">
@@ -82,8 +82,8 @@
               </div>
             </v-card>
           </v-col>
-          <v-col cols="4">
-            <v-card tile class="mr-2 ml-2" color="#F70034" dark>
+          <v-col cols="12" sm="4">
+            <v-card tile class="mr-sm-2 ml-sm-2" color="#F70034" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
                   <v-card-title class="body-1 pb-0 font-weight-medium">Open Invoice</v-card-title>
@@ -94,8 +94,8 @@
               </div>
             </v-card>
           </v-col>
-          <v-col cols="4">
-            <v-card tile class="ml-4" color="#556BE7" dark>
+          <v-col cols="12" sm="4">
+            <v-card tile class="ml-sm-4" color="#556BE7" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
                   <v-card-title class="body-1 pb-0 font-weight-medium">Total Invoice</v-card-title>

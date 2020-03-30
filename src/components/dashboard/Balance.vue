@@ -1,6 +1,6 @@
 <template>
   <v-row class="pb-10 mb-10">
-    <v-col cols="3">
+    <v-col cols="12" sm="6" md="3" lg="3">
       <span>ACCOUNTS</span>
       <v-data-table
         :headers="balance.headers"
@@ -9,7 +9,7 @@
         hide-default-footer
       ></v-data-table>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="12" sm="6" md="3" lg="3">
       <span>LATEST REVENUES</span>
       <v-data-table
         :headers="transaction.headers"
@@ -18,7 +18,7 @@
         hide-default-footer
       ></v-data-table>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="12" sm="6" md="3" lg="3">
       <span>LATEST PAYMENTS</span>
       <v-data-table
         :headers="transaction.headers"
@@ -27,7 +27,7 @@
         hide-default-footer
       ></v-data-table>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="12" sm="6" md="3" lg="3">
       <span>LATEST EXPENSES</span>
       <v-data-table
         :headers="transaction.headers"

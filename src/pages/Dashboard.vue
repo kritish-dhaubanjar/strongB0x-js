@@ -4,13 +4,13 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
     <v-row>
-      <v-col cols="6" offset="3" class="text-right pb-0 pt-5">
+      <v-col cols="12" sm="6" offset-sm="3" class="text-right pb-0 pt-5">
         <v-icon>mdi-calendar-month</v-icon>
         <span class="caption">From: {{earliestDate}}</span>
         <v-icon class="ml-3">mdi-calendar-month</v-icon>
         <span class="caption">To: {{latestDate}}</span>
       </v-col>
-      <v-col cols="3" class="p-0">
+      <v-col cols="12" sm="3" class="p-0 text-right">
         <v-select
           dense
           :items="range"

@@ -122,7 +122,7 @@
       <!-- <v-btn small depressed color="success" class="ml-2">
         <v-icon>mdi-plus</v-icon>Add New
       </v-btn>-->
-      <v-btn small depressed class="ml-2">
+      <!-- <v-btn small depressed class="ml-2">
         <v-icon>mdi-download</v-icon>Import
       </v-btn>
       <v-btn small depressed class="ml-2">
@@ -130,7 +130,7 @@
       </v-btn>
       <v-btn small depressed class="ml-2">
         <v-icon>mdi-book-information-variant</v-icon>Inventory
-      </v-btn>
+      </v-btn>-->
     </v-col>
   </v-row>
 </template>

@@ -22,7 +22,20 @@
         :footer-props="{
             'items-per-page-options': [25, 50, 100, -1]
         }"
+        @current-items="filter"
       ></v-data-table>
+
+      <v-col cols="12" class="text-right">
+        <download-excel
+          class="v-btn v-btn--depressed theme--light v-size--small"
+          worksheet="Worksheet"
+          name="transactions.xls"
+          :data="json_data"
+          :fields="json_fields"
+        >
+          <v-icon>mdi-upload</v-icon>Export
+        </download-excel>
+      </v-col>
     </v-col>
   </v-row>
 </template>
@@ -45,8 +58,29 @@ export default {
         { text: "CATEGORY ", value: "category" },
         { text: "DESCRIPTION ", value: "description" },
         { text: "AMOUNT", value: "amount" }
-      ]
+      ],
+      json_data: [],
+      json_fields: {
+        "Paid At": "paid_at",
+        Account: "account",
+        Type: "type",
+        Category: "category",
+        Description: "description",
+        Amount: "amount"
+      }
     };
+  },
+
+  methods: {
+    /* Excel */
+    filter(data) {
+      this.json_data = data.map(d => {
+        if (d.type == "expense") {
+          d.amount *= -1;
+        }
+        return d;
+      });
+    }
   }
 };
 </script>

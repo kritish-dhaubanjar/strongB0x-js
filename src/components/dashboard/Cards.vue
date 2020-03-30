@@ -1,6 +1,6 @@
 <template>
-  <v-row>
-    <v-col v-for="(card,index) in cards" :key="index">
+  <v-row id="cards">
+    <v-col v-for="(card,index) in cards" :key="index" cols="6" sm="4" md="3" lg="3">
       <v-card class="mx-auto" tile :color="card.color" dark>
         <div class="d-flex flex-no-wrap justify-space-between">
           <div>
@@ -55,3 +55,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@media (min-width: 1264px) {
+  .col-lg-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+</style>

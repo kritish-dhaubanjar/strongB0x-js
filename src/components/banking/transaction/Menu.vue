@@ -3,7 +3,7 @@
     <v-col cols="5">
       <h1 class="title">Transactions</h1>
     </v-col>
-    <v-col cols="7" class="text-right">
+    <!-- <v-col cols="7" class="text-right">
       <v-btn color="success" dark depressed small class="ml-2">
         <v-icon>mdi-plus</v-icon>Add Income
       </v-btn>
@@ -16,7 +16,7 @@
       <v-btn small depressed class="ml-2">
         <v-icon>mdi-upload</v-icon>Export
       </v-btn>
-    </v-col>
+    </v-col>-->
   </v-row>
 </template>
 

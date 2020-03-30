@@ -58,12 +58,12 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn small depressed class="ml-2">
+      <!-- <v-btn small depressed class="ml-2">
         <v-icon>mdi-download</v-icon>Import
       </v-btn>
       <v-btn small depressed class="ml-2">
         <v-icon>mdi-upload</v-icon>Export
-      </v-btn>
+      </v-btn>-->
       <!-- <v-btn small depressed class="ml-2">
         <v-icon>mdi-book-information-variant</v-icon>Inventory
       </v-btn>-->
