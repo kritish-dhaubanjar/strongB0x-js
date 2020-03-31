@@ -94,7 +94,7 @@
             <v-card tile class="mr-sm-2 ml-sm-2" color="#F70034" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
-                  <v-card-title class="body-1 pb-0 font-weight-medium">Total Units Purchased</v-card-title>
+                  <v-card-title class="body-1 pb-0 font-weight-medium">Units Purchased</v-card-title>
                   <v-card-text class="title">
                     <p class="mb-0">{{purchase_count}}</p>
                   </v-card-text>
@@ -106,7 +106,7 @@
             <v-card tile class="ml-sm-4" color="#556BE7" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
-                  <v-card-title class="body-1 pb-0 font-weight-medium">Total Units Sold</v-card-title>
+                  <v-card-title class="body-1 pb-0 font-weight-medium">Units Sold</v-card-title>
                   <v-card-text class="title">
                     <p class="mb-0">{{sale_count}}</p>
                   </v-card-text>
