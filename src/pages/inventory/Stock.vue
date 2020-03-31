@@ -64,7 +64,7 @@
             <div>
               <v-card-title class="body-2 pb-0 font-weight-medium">Opening Stock</v-card-title>
               <v-card-text class="caption">
-                <p class="mb-0">{{item.qty}}</p>
+                <p class="mb-0">{{item.quantity}}</p>
               </v-card-text>
               <v-card-title class="body-2 py-0 font-weight-medium">Sale Price</v-card-title>
               <v-card-text class="caption">
