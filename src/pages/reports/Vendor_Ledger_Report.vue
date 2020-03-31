@@ -136,7 +136,6 @@
         }"
               ></v-data-table>
             </v-tab-item>
-            <v-tab-item value="tabTansactions"></v-tab-item>
           </v-tabs>
         </v-row>
       </v-col>
@@ -160,12 +159,7 @@ export default {
         bills: [],
         transactions: []
       },
-      vendors: [
-        {
-          text: "Hello",
-          value: 1
-        }
-      ],
+      vendors: [],
       transactions: {
         headers: [
           {

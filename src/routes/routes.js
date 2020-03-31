@@ -3,6 +3,7 @@ import Dashboard from "@/pages/Dashboard"
 import Product from "@/pages/inventory/Product"
 import Unit from "@/pages/inventory/Unit"
 import Tax from "@/pages/inventory/Tax"
+import Stock from "@/pages/inventory/Stock"
 /* Sales */
 import Invoice from "@/pages/sales/Invoice"
 import Revenue from "@/pages/sales/Revenue"
@@ -43,6 +44,11 @@ export const routes = [{
         path: "/invoices",
         component: Invoice,
         name: "Invoices"
+    },
+    {
+        path: "/stock",
+        component: Stock,
+        name: "Stock Count"
     },
     /* Sales */
     {

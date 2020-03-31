@@ -81,7 +81,12 @@ export default {
         {
           action: "mdi-folder-settings-outline",
           title: "Inventory",
-          items: [{ title: "Products" }, { title: "Units" }, { title: "Taxes" }]
+          items: [
+            { title: "Products" },
+            { title: "Units" },
+            { title: "Taxes" },
+            { title: "Stock Count" }
+          ]
         },
         {
           action: "mdi-cash-multiple",
