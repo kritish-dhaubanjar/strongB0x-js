@@ -86,7 +86,7 @@
             <v-card tile class="mr-sm-2 ml-sm-2" color="#F70034" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
-                  <v-card-title class="body-1 pb-0 font-weight-medium">Open Invoice</v-card-title>
+                  <v-card-title class="body-1 pb-0 font-weight-medium">Open Bill</v-card-title>
                   <v-card-text class="title">
                     <p class="mb-0">NPR {{credit}}</p>
                   </v-card-text>
@@ -98,7 +98,7 @@
             <v-card tile class="ml-sm-4" color="#556BE7" dark>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
-                  <v-card-title class="body-1 pb-0 font-weight-medium">Total Invoice</v-card-title>
+                  <v-card-title class="body-1 pb-0 font-weight-medium">Total Bill</v-card-title>
                   <v-card-text class="title">
                     <p class="mb-0">NPR {{total}}</p>
                   </v-card-text>

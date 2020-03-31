@@ -23,7 +23,10 @@ export default {
   created() {
     this.overlay = true;
     axios.get("/api/transactions").then(res => {
-      this.transactions = res.data.data;
+      this.transactions = res.data.data.map(t => {
+        if (t.type == "expense") t.amount *= -1;
+        return t;
+      });
       this.overlay = false;
     });
   },

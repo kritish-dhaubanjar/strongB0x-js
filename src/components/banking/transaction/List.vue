@@ -74,12 +74,14 @@ export default {
   methods: {
     /* Excel */
     filter(data) {
-      this.json_data = data.map(d => {
-        if (d.type == "expense") {
-          d.amount *= -1;
-        }
-        return d;
-      });
+      this.json_data = data;
+      console.log(data);
+      // .map(d => {
+      //   if (d.type == "expense") {
+      //     d.amount *= -1;
+      //   }
+      //   return d;
+      // });
     }
   }
 };
