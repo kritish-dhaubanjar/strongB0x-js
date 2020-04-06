@@ -4,6 +4,7 @@ import Product from "@/pages/inventory/Product"
 import Unit from "@/pages/inventory/Unit"
 import Tax from "@/pages/inventory/Tax"
 import Stock from "@/pages/inventory/Stock"
+import Brands from "@/pages/inventory/Brands"
 /* Sales */
 import Invoice from "@/pages/sales/Invoice"
 import Revenue from "@/pages/sales/Revenue"
@@ -23,6 +24,7 @@ import Customer_Ledger_Report from "@/pages/reports/Customer_Ledger_Report";
 /* Settings */
 import Company from "@/pages/settings/Company"
 import Category from "@/pages/settings/Category"
+import Users from "@/pages/settings/Users"
 
 export const routes = [{
         path: "/products",
@@ -44,6 +46,11 @@ export const routes = [{
         path: "/invoices",
         component: Invoice,
         name: "Invoices"
+    },
+    {
+        path: "/brands",
+        component: Brands,
+        name: "Brands"
     },
     {
         path: "/stock",
@@ -113,7 +120,7 @@ export const routes = [{
     {
         path: "/company",
         component: Company,
-        name: "Company"
+        name: "Company",
     },
     {
         path: "/categories",
@@ -125,5 +132,11 @@ export const routes = [{
         path: "/",
         component: Dashboard,
         name: "Dashboard"
+    },
+    /*Users*/
+    {
+        path: "/users",
+        component: Users,
+        name: "Users",
     }
 ]

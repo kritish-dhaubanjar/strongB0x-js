@@ -57,7 +57,7 @@ export default {
         ...mapped
       ];
     });
-    axios.get("/api/categories").then(res => {
+    axios.get("/api/categories/product").then(res => {
       let mapped = res.data.data.map(e => {
         return {
           value: e.id,

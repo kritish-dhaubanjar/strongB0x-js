@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <Bar />
-    <Drawer />
-    <v-content>
+    <Login v-if="!isAuth" @loggedIn="loggedIn" />
+    <Bar v-if="isAuth" @loggedOut="isAuth=false" :company="company" />
+    <Drawer v-if="isAuth" :user="user" :company="company" />
+    <v-content v-if="isAuth">
       <v-container class="py-3 px-6">
         <router-view />
         <Footer />
@@ -12,15 +13,59 @@
 </template>
 
 <script>
+import Login from "@/pages/auth/Login";
 import Bar from "@/components/Bar";
 import Drawer from "@/components/Drawer";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
+  data() {
+    return {
+      isAuth: false,
+      user: {},
+      company: {},
+      roles: []
+    };
+  },
+
+  created() {
+    this.isAuth = this.$auth.isAuth();
+    if (this.isAuth) {
+      this.getUser();
+    }
+  },
+
+  methods: {
+    loggedIn() {
+      this.isAuth = true;
+      this.getUser();
+    },
+
+    getUser() {
+      axios
+        .get("/api/user")
+        .then(res => {
+          this.user = res.data.user;
+          this.roles = res.data.roles;
+        })
+        .then(() => {
+          axios.get("/api/company").then(res => {
+            this.company = res.data;
+          });
+        })
+        .catch(() => {
+          this.isAuth = false;
+          this.$auth.destroyToken();
+        });
+    }
+  },
+
   components: {
     Bar,
     Drawer,
-    Footer
+    Footer,
+    Login
   }
 };
 </script>

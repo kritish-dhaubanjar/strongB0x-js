@@ -18,12 +18,12 @@ export default {
     return {
       overlay: false,
       categories: [],
-      types: ["income", "expense", "other"]
+      types: ["item"]
     };
   },
   created() {
     this.overlay = true;
-    axios.get("/api/categories").then(res => {
+    axios.get("/api/categories/product").then(res => {
       this.categories = res.data.data;
       this.overlay = false;
     });

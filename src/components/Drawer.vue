@@ -16,8 +16,8 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Admin</v-list-item-title>
-          <v-list-item-subtitle>Gimmick Box</v-list-item-subtitle>
+          <v-list-item-title>{{user.name}}</v-list-item-title>
+          <v-list-item-subtitle>{{company.name}}</v-list-item-subtitle>
         </v-list-item-content>
         <!-- <v-btn icon @click="miniVariant = !miniVariant">
           <v-icon>mdi-chevron-left</v-icon>
@@ -66,6 +66,7 @@
 
 <script>
 export default {
+  props: ["user", "company"],
   data() {
     return {
       drawer: true,
@@ -85,6 +86,7 @@ export default {
             { title: "Products" },
             { title: "Units" },
             { title: "Taxes" },
+            { title: "Brands" },
             { title: "Stock Count" }
           ]
         },
@@ -127,10 +129,23 @@ export default {
         {
           action: "mdi-cog-outline",
           title: "Settings",
-          items: [{ title: "Categories" }, { title: "Company" }]
+          items: [{ title: "Categories" }]
         }
       ]
     };
+  },
+
+  watch: {
+    user() {
+      if (this.user.role.name == "Administrator") {
+        this.items_2[this.items_2.length - 1].items.push({
+          title: "Company"
+        });
+        this.items_2[this.items_2.length - 1].items.push({
+          title: "Users"
+        });
+      }
+    }
   },
 
   methods: {

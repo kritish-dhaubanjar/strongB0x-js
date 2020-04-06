@@ -3,6 +3,11 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import VueRouter from 'vue-router';
 import JsonExcel from 'vue-json-excel'
+import axios from 'axios';
+
+import {
+  auth
+} from '@/packages/Auth';
 
 import {
   routes
@@ -40,6 +45,18 @@ Vue.prototype.$BS = {
   2089: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
   2090: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30]
 }
+Vue.prototype.$auth = auth;
+
+axios.interceptors.request.use(function (config) {
+  if (auth.isAuth()) {
+    const token = auth.getToken();
+    config.headers.Authorization = 'Bearer ' + token;
+  }
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 
 new Vue({
   vuetify,
