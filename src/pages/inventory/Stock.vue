@@ -42,7 +42,7 @@
             <div>
               <v-card-title class="body-2 pb-0 font-weight-medium">Category</v-card-title>
               <v-card-text class="caption">
-                <p class="mb-0">{{item.category.name}}</p>
+                <p class="mb-0" v-if="item.category">{{item.category.name}}</p>
               </v-card-text>
               <v-card-title class="body-2 py-0 font-weight-medium">Description</v-card-title>
               <v-card-text class="caption">
@@ -50,11 +50,11 @@
               </v-card-text>
               <v-card-title class="body-2 py-0 font-weight-medium">Unit</v-card-title>
               <v-card-text class="caption">
-                <p class="mb-0">{{item.unit.name}}</p>
+                <p class="mb-0" v-if="item.unit">{{item.unit.name}}</p>
               </v-card-text>
               <v-card-title class="body-2 py-0 font-weight-medium">Tax</v-card-title>
               <v-card-text class="caption">
-                <p class="mb-0">{{item.tax.name}}</p>
+                <p class="mb-0" v-if="item.tax">{{item.tax.name}}</p>
               </v-card-text>
             </div>
           </div>
