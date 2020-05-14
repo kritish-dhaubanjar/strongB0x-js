@@ -64,7 +64,7 @@
     <v-dialog v-model="edit.edit" max-width="768px">
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Customer</span>
+          <span class="headline">Edit Transfer</span>
         </v-card-title>
 
         <v-card-text>
