@@ -322,7 +322,7 @@ export default {
       return this.bill.items.map(e => {
         let subTotal = e.price * e.quantity;
         let tax_rate = 0;
-        if (e.tax_id != null) {
+        if (e.tax_id) {
           tax_rate = this.taxes.filter(t => t.value === e.tax_id).pop().rate;
         }
         return subTotal + (tax_rate / 100) * subTotal;
@@ -345,7 +345,7 @@ export default {
 
     tax() {
       let tax_rate = 0;
-      if (this.bill.tax_id != null)
+      if (this.bill.tax_id)
         tax_rate = this.taxes.filter(t => t.value === this.bill.tax_id).pop()
           .rate;
       return (tax_rate / 100) * this.afterDiscount;
