@@ -20,7 +20,7 @@
           </v-card-title>
 
           <v-card-text class="py-0">
-            <v-form ref="form" v-model="valid" lazy-validation>
+            <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="save">
               <v-container>
                 <v-row>
                   <v-col cols="12" class="py-0">
