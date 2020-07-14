@@ -239,7 +239,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red darken-1" text @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="save" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -321,7 +321,8 @@ export default {
       v => !!v || "Price is required",
       v => (v && v >= 0) || "Price must not be less than 0."
     ],
-    discountRules: [v => (v && v >= 0) || "Discount must not be less than 0."]
+    discountRules: [v => (v && v >= 0) || "Discount must not be less than 0."],
+    loading: false
   }),
 
   computed: {
@@ -397,6 +398,7 @@ export default {
     },
     save() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         axios
           .post("/api/sales", this.invoice)
           .then(res => {
@@ -417,6 +419,9 @@ export default {
             this.snackbar.show = true;
             this.snackbar.color = "error";
             this.snackbar.message = "500 (Internal Server Error)";
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     }

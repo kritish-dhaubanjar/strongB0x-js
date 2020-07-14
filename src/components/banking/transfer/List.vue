@@ -55,7 +55,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="resetDelete">Cancel</v-btn>
-          <v-btn color="red darken-1" text @click="confirmDelete">Delete Permanently</v-btn>
+          <v-btn
+            color="red darken-1"
+            text
+            @click="confirmDelete"
+            :loading="loading"
+          >Delete Permanently</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -135,7 +140,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="resetEdit">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveEdit">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="saveEdit" :loading="loading">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -200,7 +205,8 @@ export default {
         From: "expense",
         To: "income",
         Amount: "amount"
-      }
+      },
+      loading: false
     };
   },
 
@@ -224,6 +230,7 @@ export default {
 
     saveEdit() {
       if (this.$refs.edit.validate()) {
+        this.loading = true;
         axios
           .put(`/api/transfers/${this.edit.item.id}`, this.edit.item)
           .then(res => {
@@ -249,6 +256,7 @@ export default {
           })
           .finally(() => {
             this.resetEdit();
+            this.loading = false;
           });
       }
     },
@@ -267,6 +275,7 @@ export default {
 
     confirmDelete() {
       if (this.destroy.destroy && this.destroy.index > -1) {
+        this.loading = true;
         axios
           .delete(`/api/transfers/${this.destroy.item.id}`)
           .then(res => {
@@ -289,6 +298,7 @@ export default {
             this.destroy.item = {};
             this.destroy.index = null;
             this.destroy.destroy = false;
+            this.loading = false;
           });
       }
     }

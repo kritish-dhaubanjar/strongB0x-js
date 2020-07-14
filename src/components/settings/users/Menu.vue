@@ -100,7 +100,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red darken-1" text @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="save" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -156,7 +156,8 @@ export default {
     emailRules: [
       v => !!v || "E-mail is required",
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ]
+    ],
+    loading: false
   }),
 
   computed: {
@@ -182,6 +183,7 @@ export default {
     },
     save() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         axios
           .post("/api/register", this.item)
           .then(res => {
@@ -204,6 +206,9 @@ export default {
             for (let key in err.response.data.errors) {
               this.snackbar.message += `${err.response.data.errors[key]}<br>`;
             }
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     }

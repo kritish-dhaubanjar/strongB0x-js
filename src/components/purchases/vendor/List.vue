@@ -193,8 +193,10 @@ export default {
         v => (v && v.length <= 100) || "Name must be less than 100 characters"
       ],
       balanceRules: [
-        v => !!v || "Opening Balance is required",
-        v => (v && v >= 0) || "Opening Balance must not be less than 0."
+        v => !!v || v == 0 || "Opening Balance is required",
+        v =>
+          ((v || v == 0) && v >= 0) ||
+          "Opening Balance must not be less than 0."
       ],
       json_data: [],
       json_fields: {

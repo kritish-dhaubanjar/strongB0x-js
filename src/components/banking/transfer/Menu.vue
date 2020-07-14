@@ -87,7 +87,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red darken-1" text @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="save" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -136,7 +136,8 @@ export default {
           ) &&
           v.length === 10) ||
         "Date must be formated as yyyy-mm-dd"
-    ]
+    ],
+    loading: false
   }),
 
   watch: {
@@ -161,6 +162,7 @@ export default {
     },
     save() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         axios
           .post("/api/transfers", this.item)
           .then(res => {
@@ -181,6 +183,9 @@ export default {
             this.snackbar.show = true;
             this.snackbar.color = "error";
             this.snackbar.message = "500 (Internal Server Error)";
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     }
