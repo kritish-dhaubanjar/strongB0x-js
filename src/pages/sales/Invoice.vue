@@ -4,6 +4,7 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
     <Menu
+      @customer="dialog=true"
       :products="products"
       :taxes="taxes"
       :accounts="accounts"
@@ -24,6 +25,7 @@
       :items="invoices"
       @update="update"
     />
+    <Customer :dialog="dialog" @close="refresh" />
   </div>
 </template>
 
@@ -31,11 +33,15 @@
 import Menu from "@/components/sales/invoices/Menu";
 import Jumbotron from "@/components/sales/invoices/Jumbotron";
 import List from "@/components/sales/invoices/List";
+import Customer from "@/components/sales/invoices/Customer";
 import axios from "axios";
 
 export default {
   data() {
     return {
+      //
+      dialog: false,
+      //
       overlay: false,
       invoices: [],
       accounts: [],
@@ -103,7 +109,8 @@ export default {
   components: {
     Menu,
     Jumbotron,
-    List
+    List,
+    Customer
   },
   methods: {
     insert(payload) {
@@ -111,6 +118,17 @@ export default {
     },
     update({ index, data }) {
       this.invoices.splice(index, 1, data);
+    },
+    refresh() {
+      this.dialog = false;
+      axios.get("/api/contacts/customer").then(res => {
+        this.customers = res.data.data.map(e => {
+          return {
+            value: e.id,
+            text: e.name
+          };
+        });
+      });
     }
   }
 };

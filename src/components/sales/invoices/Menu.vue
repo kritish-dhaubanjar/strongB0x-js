@@ -23,7 +23,7 @@
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-container>
                 <v-row>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="3" class="pt-0 pb-1">
                     <v-select
                       prepend-inner-icon="mdi-account-circle-outline"
                       v-model="invoice.customer_id"
@@ -31,6 +31,11 @@
                       :rules="customerRules"
                       label="Customer"
                     ></v-select>
+                  </v-col>
+                  <v-col>
+                    <v-btn color="success" @click="$emit('customer')">
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
                   </v-col>
                   <v-col cols="4" class="pt-0 pb-1">
                     <v-text-field
