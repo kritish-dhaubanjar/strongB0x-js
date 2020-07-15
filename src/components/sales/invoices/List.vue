@@ -76,7 +76,7 @@
           <v-form ref="edit" v-model="valid" lazy-validation>
             <v-container>
               <v-row>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-select
                     prepend-inner-icon="mdi-account-circle-outline"
                     v-model="edit.item.customer_id"
@@ -85,7 +85,7 @@
                     label="Customer"
                   ></v-select>
                 </v-col>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-text-field
                     prepend-inner-icon="mdi-label-multiple-outline"
                     v-model="edit.item.invoice_number"
@@ -94,7 +94,7 @@
                     :rules="invoiceNumberRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-text-field
                     prepend-inner-icon="mdi-label-multiple-outline"
                     v-model="edit.item.order_number"
@@ -104,7 +104,7 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-select
                     prepend-inner-icon="mdi-folder-outline"
                     v-model="edit.item.category_id"
@@ -113,7 +113,7 @@
                     label="Category"
                   ></v-select>
                 </v-col>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-text-field
                     prepend-inner-icon="mdi-calendar-month"
                     v-model="edit.item.invoiced_at"
@@ -122,7 +122,7 @@
                     placeholder="2076-12-01"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="4" class="pt-0 pb-1">
+                <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-text-field
                     prepend-inner-icon="mdi-calendar-month"
                     v-model="edit.item.due_at"
@@ -379,8 +379,8 @@ export default {
           "Due Date must be formated as yyyy-mm-dd"
       ],
       quantityRules: [
-        v => !!v || "Quantity is required",
-        v => (v && v >= 0) || "Quantity must not be less than 0."
+        v => !!v || "Quantity is required"
+        // v => (v && v >= 0) || "Quantity must not be less than 0."
       ],
       nameRules: [v => !!v || "Name is required"],
       priceRules: [

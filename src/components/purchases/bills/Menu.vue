@@ -23,7 +23,7 @@
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-container>
                 <v-row>
-                  <v-col cols="3" class="pt-0 pb-1">
+                  <v-col cols="9" sm="9" md="3" class="pt-0 pb-1">
                     <v-select
                       prepend-inner-icon="mdi-account-circle-outline"
                       v-model="bill.vendor_id"
@@ -32,12 +32,12 @@
                       label="Vendor"
                     ></v-select>
                   </v-col>
-                  <v-col>
+                  <v-col cols="3" sm="3" md="1">
                     <v-btn color="success" @click="$emit('vendor')">
                       <v-icon>mdi-plus</v-icon>
                     </v-btn>
                   </v-col>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                     <v-text-field
                       prepend-inner-icon="mdi-label-multiple-outline"
                       v-model="bill.bill_number"
@@ -46,7 +46,7 @@
                       :rules="billNumberRules"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                     <v-text-field
                       prepend-inner-icon="mdi-label-multiple-outline"
                       v-model="bill.order_number"
@@ -56,7 +56,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                     <v-select
                       prepend-inner-icon="mdi-folder-outline"
                       v-model="bill.category_id"
@@ -65,7 +65,7 @@
                       label="Category"
                     ></v-select>
                   </v-col>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                     <v-text-field
                       prepend-inner-icon="mdi-calendar-month"
                       v-model="bill.billed_at"
@@ -74,7 +74,7 @@
                       placeholder="2076-12-01"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4" class="pt-0 pb-1">
+                  <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                     <v-text-field
                       prepend-inner-icon="mdi-calendar-month"
                       v-model="bill.due_at"
@@ -311,8 +311,8 @@ export default {
         "Due Date must be formated as yyyy-mm-dd"
     ],
     quantityRules: [
-      v => !!v || "Quantity is required",
-      v => (v && v >= 0) || "Quantity must not be less than 0."
+      v => !!v || "Quantity is required"
+      // v => (v && v >= 0) || "Quantity must not be less than 0."
     ],
     nameRules: [v => !!v || "Name is required"],
     priceRules: [
@@ -322,6 +322,10 @@ export default {
     discountRules: [v => (v && v >= 0) || "Discount must not be less than 0."],
     loading: false
   }),
+
+  created() {
+    this.addItem();
+  },
 
   computed: {
     subTotal() {
