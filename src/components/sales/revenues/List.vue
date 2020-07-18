@@ -188,7 +188,7 @@ export default {
           value: "paid_at"
         },
         { text: "AMOUNT (NPR)", value: "amount" },
-        { text: "VENDOR", value: "contact_name" },
+        { text: "CUSTOMER", value: "contact_name" },
         { text: "CATEGORY", value: "category" },
         { text: "ACCOUNT", value: "account" },
         { text: "PAYMENT METHOD", value: "payment_method" },
