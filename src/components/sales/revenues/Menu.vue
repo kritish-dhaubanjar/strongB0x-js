@@ -171,7 +171,7 @@ export default {
     close() {
       this.dialog = false;
       this.$refs.form.resetValidation();
-      this.item.type = "expense";
+      this.item.type = "income";
       this.item.paid_at = "";
       this.item.amount = "0.00";
       this.item.account_id = null;
