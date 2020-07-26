@@ -47,9 +47,21 @@
             </thead>
             <tbody>
               <tr v-for="(item,index) in datasets" :key="index">
-                <th>{{ item.label }}</th>
-                <td v-for="(amount, index) in item.data" :key="index">{{ amount }}</td>
-                <th>{{netAmount[index]}}</th>
+                <th
+                  :class="{'revenues': item.category=='revenues',
+                'expenses': item.category=='expenses',
+                 'payments': item.category=='payments'}"
+                >{{ item.label }}</th>
+                <td
+                  :class="{'revenues': item.category=='revenues',
+                 'expenses': item.category=='expenses',
+                  'payments': item.category=='payments'}"
+                  v-for="(amount, index) in item.data"
+                  :key="index"
+                >{{ amount }}</td>
+                <th
+                  :class="{'revenues': item.category=='revenues', 'expenses': item.category=='expenses', 'payments': item.category=='payments'}"
+                >{{netAmount[index]}}</th>
               </tr>
             </tbody>
           </template>
@@ -250,7 +262,8 @@ export default {
                 borderColor: this.colors[i],
                 backgroundColor: "transparent",
                 borderWidth: 2,
-                hidden: true
+                hidden: true,
+                category: item
               };
               data.label = category;
               for (let year in res.data[item][category]) {
@@ -312,3 +325,17 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.revenues {
+  background-color: rgb(98, 172, 91, 0.15);
+}
+
+.payments {
+  background-color: rgb(247, 0, 52, 0.25);
+}
+
+.expenses {
+  background-color: rgb(156, 39, 176, 0.15);
+}
+</style>
