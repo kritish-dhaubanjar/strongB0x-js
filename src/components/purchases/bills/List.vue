@@ -77,13 +77,13 @@
             <v-container>
               <v-row>
                 <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
-                  <v-select
+                  <v-autocomplete
                     prepend-inner-icon="mdi-account-circle-outline"
                     v-model="edit.item.vendor_id"
                     :items="vendors"
                     :rules="vendorRules"
                     label="Vendor"
-                  ></v-select>
+                  ></v-autocomplete>
                 </v-col>
                 <v-col cols="12" sm="6" md="4" class="pt-0 pb-1">
                   <v-text-field

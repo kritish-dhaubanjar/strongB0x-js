@@ -55,12 +55,12 @@
                 </v-row>
                 <v-row>
                   <v-col cols="4" class="py-0">
-                    <v-select
+                    <v-autocomplete
                       prepend-inner-icon="mdi-account-circle-outline"
                       v-model="item.contact_id"
                       :items="vendors"
                       label="Customer"
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                   <v-col cols="4" class="py-0">
                     <v-select

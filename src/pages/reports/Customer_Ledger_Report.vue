@@ -206,7 +206,7 @@ export default {
     },
 
     credit() {
-      return this.total - this.debit;
+      return (this.total - this.debit).toFixed(2);
     },
 
     total() {

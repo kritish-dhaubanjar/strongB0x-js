@@ -24,13 +24,13 @@
               <v-container>
                 <v-row>
                   <v-col cols="9" sm="9" md="3" class="pt-0 pb-1">
-                    <v-select
+                    <v-autocomplete
                       prepend-inner-icon="mdi-account-circle-outline"
                       v-model="invoice.customer_id"
                       :items="customers"
                       :rules="customerRules"
                       label="Customer"
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                   <v-col cols="3" sm="3" md="1">
                     <v-btn color="success" @click="$emit('customer')">
