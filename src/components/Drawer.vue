@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
+    v-model="show"
     :color="color"
     :expand-on-hover="expandOnHover"
     :mini-variant="miniVariant"
@@ -16,17 +16,22 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{user.name}}</v-list-item-title>
-          <v-list-item-subtitle>{{company.name}}</v-list-item-subtitle>
+          <v-list-item-title>{{ user.name }}</v-list-item-title>
+          <v-list-item-subtitle>{{ company.name }}</v-list-item-subtitle>
         </v-list-item-content>
         <!-- <v-btn icon @click="miniVariant = !miniVariant">
           <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>-->
+        </v-btn> -->
       </v-list-item>
 
       <v-divider></v-divider>
 
-      <v-list-item v-for="item in items_1" :key="item.title" link @click="goto(item.title)">
+      <v-list-item
+        v-for="item in items_1"
+        :key="item.title"
+        link
+        @click="goto(item.title)"
+      >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -66,10 +71,10 @@
 
 <script>
 export default {
-  props: ["user", "company"],
+  props: ["user", "company", "drawer"],
   data() {
     return {
-      drawer: true,
+      show: true,
       items_1: [{ title: "Dashboard", icon: "mdi-view-dashboard" }],
 
       color: "primary",
@@ -87,8 +92,8 @@ export default {
             { title: "Units" },
             { title: "Taxes" },
             { title: "Brands" },
-            { title: "Stock Count" }
-          ]
+            { title: "Stock Count" },
+          ],
         },
         {
           action: "mdi-cash-multiple",
@@ -96,8 +101,8 @@ export default {
           items: [
             { title: "Invoices" },
             { title: "Revenues" },
-            { title: "Customers" }
-          ]
+            { title: "Customers" },
+          ],
         },
         {
           action: "mdi-cart",
@@ -105,8 +110,8 @@ export default {
           items: [
             { title: "Bills" },
             { title: "Payments" },
-            { title: "Vendors" }
-          ]
+            { title: "Vendors" },
+          ],
         },
         {
           action: "mdi-briefcase-check",
@@ -114,8 +119,8 @@ export default {
           items: [
             { title: "Accounts" },
             { title: "Transfers" },
-            { title: "Transactions" }
-          ]
+            { title: "Transactions" },
+          ],
         },
         {
           action: "mdi-chart-bar",
@@ -123,15 +128,15 @@ export default {
           items: [
             { title: "Income & Expense" },
             { title: "Vendor Ledger Report" },
-            { title: "Customer Ledger Report" }
-          ]
+            { title: "Customer Ledger Report" },
+          ],
         },
         {
           action: "mdi-cog-outline",
           title: "Settings",
-          items: [{ title: "Categories" }]
-        }
-      ]
+          items: [{ title: "Categories" }],
+        },
+      ],
     };
   },
 
@@ -139,23 +144,27 @@ export default {
     user() {
       if (this.user.role.name == "Administrator") {
         this.items_2[this.items_2.length - 1].items.push({
-          title: "Company"
+          title: "Company",
         });
         this.items_2[this.items_2.length - 1].items.push({
-          title: "Users"
+          title: "Users",
         });
       }
-    }
+    },
+
+    drawer() {
+      this.show = true;
+    },
   },
 
   methods: {
     goto(route) {
       this.$router
         .push({
-          name: route
+          name: route,
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,8 +1,13 @@
 <template>
   <v-app>
     <Login v-if="!isAuth" @loggedIn="loggedIn" />
-    <Bar v-if="isAuth" @loggedOut="isAuth=false" :company="company" />
-    <Drawer v-if="isAuth" :user="user" :company="company" />
+    <Bar
+      v-if="isAuth"
+      @loggedOut="isAuth = false"
+      :company="company"
+      @drawer="drawer = !drawer"
+    />
+    <Drawer v-if="isAuth" :user="user" :company="company" :drawer="drawer" />
     <v-content v-if="isAuth">
       <v-container class="py-3 px-6">
         <router-view />
@@ -22,10 +27,11 @@ import axios from "axios";
 export default {
   data() {
     return {
+      drawer: true,
       isAuth: false,
       user: {},
       company: {},
-      roles: []
+      roles: [],
     };
   },
 
@@ -45,12 +51,12 @@ export default {
     getUser() {
       axios
         .get("/api/user")
-        .then(res => {
+        .then((res) => {
           this.user = res.data.user;
           this.roles = res.data.roles;
         })
         .then(() => {
-          axios.get("/api/company").then(res => {
+          axios.get("/api/company").then((res) => {
             this.company = res.data;
           });
         })
@@ -58,15 +64,15 @@ export default {
           this.isAuth = false;
           this.$auth.destroyToken();
         });
-    }
+    },
   },
 
   components: {
     Bar,
     Drawer,
     Footer,
-    Login
-  }
+    Login,
+  },
 };
 </script>
 

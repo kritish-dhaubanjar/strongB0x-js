@@ -1,6 +1,9 @@
 <template>
   <v-app-bar app color="primary" dark flat dense>
-    <v-toolbar-title class="subtitle-2">{{company.name}}</v-toolbar-title>
+    <v-btn icon @click="$emit('drawer')">
+      <v-icon>mdi-menu</v-icon>
+    </v-btn>
+    <v-toolbar-title class="subtitle-2">{{ company.name }}</v-toolbar-title>
     <v-spacer></v-spacer>
 
     <v-btn icon>
@@ -20,7 +23,7 @@ export default {
   props: ["company"],
   methods: {
     logout() {
-      axios.post("/api/logout").then(res => {
+      axios.post("/api/logout").then((res) => {
         if (res.data.status == 200) {
           this.$auth.destroyToken();
           document.cookie =
@@ -28,7 +31,7 @@ export default {
           this.$emit("loggedOut");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
